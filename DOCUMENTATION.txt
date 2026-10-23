@@ -1,0 +1,179 @@
+================================================================================
+           YOUTUBE RESEARCH AGENT (VidIQ Alternative AI System)
+                        PROJECT ARCHITECTURE & ROADMAP
+================================================================================
+
+1. PROJECT OVERVIEW
+--------------------------------------------------------------------------------
+Yeh project ek autonomous AI-powered YouTube Research Agent hai jo VidIQ aur 
+TubeBuddy jese tools ke core features ko replicate karta hai.
+
+Is agent ka maqsad creators aur researchers ko:
+- High-demand, low-competition keywords dhoond kar dena.
+- Competitors ke viral outliers (jo videos channel average se 5x-10x zyada 
+  views le rahi hain) identify karna.
+- View Velocity (VPH - Views Per Hour) calculate karna taake live trends 
+  ka pata chal sake.
+- AI ke zariye high-CTR titles, SEO descriptions, tags, thumbnail concepts 
+  aur complete video outlines generate karna.
+
+Khas Baat:
+Yeh poora system YouTube Data API ke baghair (100% Free & Unlimited) kaam 
+karega via high-performance scraping aur extraction techniques.
+
+
+2. ARCHITECTURE OVERVIEW (FLOW PIPELINE)
+--------------------------------------------------------------------------------
+
+[User Query / Niche / Channel URL]
+                 |
+                 v
++-------------------------------------------------------------------+
+| MODULE 1: YouTube Data Extractor (Scraping Engine)                 |
+| - scrapetube: Channel video list & search results extraction      |
+| - yt-dlp: Metadata (Views, Likes, Tags, Upload Date, Duration)    |
+| - youtube-transcript-api: Subtitles / spoken content extraction   |
++-------------------------------------------------------------------+
+                 |
+                 v
++-------------------------------------------------------------------+
+| MODULE 2: VidIQ Analytics & Metric Scoring Engine                 |
+| - View Velocity: VPH (Views Per Hour) & Daily Growth Rate         |
+| - Outlier Score: Ratio of video views vs channel baseline views   |
+| - Engagement Rate: (Likes + Comments) / Views                     |
+| - Keyword Competition & Demand Index                              |
++-------------------------------------------------------------------+
+                 |
+                 v
++-------------------------------------------------------------------+
+| MODULE 3: AI Intelligence & Research Core (LLM Agent)             |
+| - Viral Title Generator (CTR-focused hooks, curiosity gap)        |
+| - Content Gap Identifier (Audience questions competitors missed)  |
+| - Thumbnail Strategy & Visual Prompt Generator                    |
+| - SEO Optimizer (Keywords, Tags, Descriptions, Timestamps)        |
+| - Script / Video Outline Generator                                |
++-------------------------------------------------------------------+
+                 |
+                 v
++-------------------------------------------------------------------+
+| MODULE 4: Competitor Intelligence & Monitoring                    |
+| - Multi-channel tracking & benchmarking                           |
+| - Breakout topic alerts                                           |
++-------------------------------------------------------------------+
+                 |
+                 v
++-------------------------------------------------------------------+
+| MODULE 5: User Interface (Streamlit Dashboard & CLI)              |
+| - Search keywords or drop channel links                           |
+| - Visual analytics charts, tables, export to CSV/JSON             |
+| - One-click AI generation studio                                  |
++-------------------------------------------------------------------+
+
+
+3. MODULE-BY-MODULE BREAKDOWN
+--------------------------------------------------------------------------------
+
+MODULE 1: DATA EXTRACTION & INGESTION (Free Scraping Engine)
+------------------------------------------------------------
+Files to build:
+- scraper/video_scraper.py      : Single video ya keyword search scraper.
+- scraper/channel_scraper.py    : Channel ke historical aur recent videos.
+- scraper/transcript_scraper.py : Video ka spoken script/subtitles fetch karna.
+- scraper/models.py             : Clean data models (dataclasses / Pydantic).
+
+Features:
+- Bina Google API key ke chalega.
+- Daily 10,000 units quota ki koi restriction nahi.
+- Auto-retries aur lightweight caching taake YouTube block na kare.
+
+
+MODULE 2: VIDIQ METRICS & ANALYTICS ENGINE
+------------------------------------------
+Files to build:
+- analytics/velocity.py        : Views Per Hour (VPH) & momentum calculations.
+- analytics/outlier.py         : Outlier Score (e.g. 3.5x means 350% more views
+                                than channel's average).
+- analytics/seo_scorer.py      : Keyword density, tag relevance, title length score.
+
+Core Formulae:
+1. Video Age in Hours = (Current Time - Upload Time) in hours.
+2. VPH (Views Per Hour) = Total Views / Video Age in Hours.
+3. Channel Median Views = Median(all recent 30 videos of that channel).
+4. Outlier Score = Video Views / Channel Median Views.
+   - Outlier Score > 2.0 = Performing well
+   - Outlier Score > 5.0 = Breakout Viral Video (Huge Opportunity!)
+5. Engagement Score = ((Likes * 1.5) + (Comments * 3.0)) / Views * 100.
+
+
+MODULE 3: AI RESEARCH & SEO INTELLIGENCE CORE
+---------------------------------------------
+Files to build:
+- ai/prompts.py                : VidIQ-style structured prompt templates.
+- ai/title_generator.py        : 10 viral title variations categorized by type
+                                (Fear, Curiosity, Listicle, Authority).
+- ai/content_gap.py            : Transcripts aur competitor comments analyze
+                                karke gaps dhoondna.
+- ai/seo_generator.py          : High ranking tags, optimized descriptions.
+- ai/thumbnail_agent.py        : Thumbnail concepts (visual layout, text on
+                                thumbnail, emotion, color contrast).
+
+
+MODULE 4: COMPETITOR TRACKER & NICHE SPY
+----------------------------------------
+Files to build:
+- competitors/tracker.py       : Multiple channels ko compare karna.
+- competitors/benchmark.py     : Competitors ke top performing themes filter karna.
+
+
+MODULE 5: INTERACTIVE DASHBOARD & CLI
+-------------------------------------
+Files to build:
+- app.py                       : Streamlit web application.
+- cli.py                       : Command line runner for quick terminal usage.
+
+
+4. DIRECTORY STRUCTURE
+--------------------------------------------------------------------------------
+youtube_research_agent/
+│
+├── DOCUMENTATION.txt          <- (Yeh file - Complete Guide)
+├── requirements.txt           <- Python dependencies
+├── config.py                  <- System settings & timeouts
+│
+├── scraper/                   <- Module 1
+│   ├── __init__.py
+│   ├── models.py              <- Video & Channel data structures
+│   ├── video_scraper.py       <- yt-dlp & search parser
+│   ├── channel_scraper.py     <- scrapetube channel extractor
+│   └── transcript_scraper.py  <- youtube-transcript-api
+│
+├── analytics/                 <- Module 2
+│   ├── __init__.py
+│   ├── metrics.py             <- VPH, Outlier Score, Engagement Rate
+│   └── keyword_analyzer.py    <- Search volume & competition proxy
+│
+├── ai/                        <- Module 3
+│   ├── __init__.py
+│   ├── agent.py               <- AI research engine
+│   └── prompts.py             <- VidIQ battle-tested prompts
+│
+├── competitors/               <- Module 4
+│   ├── __init__.py
+│   └── monitor.py             <- Competitor analysis
+│
+└── app.py                     <- Module 5 (Streamlit Dashboard)
+
+
+5. NEXT STEPS
+--------------------------------------------------------------------------------
+Step 1: Is documentation ko review karein.
+Step 2: Hum shuru karein ge MODULE 1 (Data Extraction & Scraping Engine),
+        jismein hum:
+        - `requirements.txt` tayar karenge.
+        - Video, Channel aur Transcript extraction code likhenge.
+        - Live YouTube search aur channel URL daal kar data fetch karke 
+          test karenge.
+
+================================================================================
+                             END OF DOCUMENTATION
+================================================================================

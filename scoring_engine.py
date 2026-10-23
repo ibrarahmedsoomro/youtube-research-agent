@@ -1,0 +1,53 @@
+"""
+Root re-export of analytics.scoring_engine for convenience.
+"""
+
+from analytics.scoring_engine import (
+    clamp,
+    unit,
+    tokens,
+    band,
+    level,
+    combine,
+    ResultVideo,
+    KeywordSignals,
+    score_keyword,
+    score_title,
+    parse_chapters,
+    chapters_valid,
+    score_content,
+    VideoRec,
+    outlier_multiplier,
+    score_channel,
+    RUBRIC_VERSION,
+    TITLE_WEIGHTS,
+    CHANNEL_WEIGHTS,
+    CHANNEL_ADVICE,
+    LEX,
+    VAGUE,
+)
+
+__all__ = [
+    "clamp",
+    "unit",
+    "tokens",
+    "band",
+    "level",
+    "combine",
+    "ResultVideo",
+    "KeywordSignals",
+    "score_keyword",
+    "score_title",
+    "parse_chapters",
+    "chapters_valid",
+    "score_content",
+    "VideoRec",
+    "outlier_multiplier",
+    "score_channel",
+    "RUBRIC_VERSION",
+    "TITLE_WEIGHTS",
+    "CHANNEL_WEIGHTS",
+    "CHANNEL_ADVICE",
+    "LEX",
+    "VAGUE",
+]
